@@ -1,9 +1,8 @@
 <package format="2">
   <name>mav_avero</name>
-  <version>1.0.0</version>
-  <description>The code for AVERO Drone</description>
-  <maintainer email="lawick@ethz.ch">Laurin Wick</maintainer>
-
+  <version>2.0.0</version>
+  <description>Controller, Simulation and Testing programs for the AVERO MAV</description>
+  <maintainer email="descobardelrio@gmail.com">Dennis Escobar del Rio</maintainer>
   <license>TBD</license>
 
   <buildtool_depend>catkin</buildtool_depend>
