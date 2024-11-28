@@ -1,0 +1,8 @@
+<launch>
+    <!-- start the necessary control nodes-->
+    <include file="$(find avero_ctrl)/launch/launch_only_controller_params.launch" />
+    ### JOYSTICK TO DESIRED WRENCH
+    <!-- <include file="$(find avero_joy)/launch/joy_to_odom.launch"/> -->
+    <node name="AveroFlyNode" pkg="avero_ctrl" type="AveroFlyNode" />
+
+</launch>

@@ -1,0 +1,5 @@
+model_params:
+  mass: 5.218
+  Ixx: 0.06
+  Iyy: 0.06
+  Izz: 0.1

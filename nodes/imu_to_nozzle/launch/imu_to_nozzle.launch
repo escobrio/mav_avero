@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<launch>
+
+
+    ###IMU FILTER###
+    <node pkg="nodelet" type="nodelet" name="imu_manager"
+        args="manager" output="screen" />
+
+  #### IMU Driver ###########################################################
+
+    <node pkg="nodelet" type="nodelet" name="ImuFilterNodelet"
+        args="load imu_filter_madgwick/ImuFilterNodelet imu_manager"
+        output="screen">
+
+        <param name="publish_tf" value="false"/>
+
+    </node>
+    
+    ### IMU NODE ###
+    <arg name="imu" default="adis16448" doc="The IMU model (adis16448 or bmi088)."/>
+    <arg name="spi_path" default="/dev/spidev0.0" doc="The SPI directory, where the first digit is the SPI port and the second digit is the chip select number."/>
+    <arg name="frequency" default="200" doc="The IMU sample frequency."/> 
+    <arg name="launch-prefix" default="" doc="Start nodes with launch-prefix."/>
+    <arg name="output" default="screen" doc="Logging directory."/>
+
+    <node name="mav_imu_node" pkg="mav_imu" type="mav_imu_node" launch-prefix="$(arg launch-prefix)" output="$(arg output)">
+        <param name="imu" value="$(arg imu)" type="string"/>
+        <param name="spi_path" value="$(arg spi_path)" type="string"/>
+        <param name="frequency" value="$(arg frequency)" type="int"/>
+    </node>
+
+    ### CONVERTER NODE ###
+    <node pkg="imu_to_nozzle" type="converter_node.py" name="converter_node"/>
+    ###TOPIC TOOLS, ADJUSTING THE RATE### 
+
+    <node pkg="topic_tools" type="throttle" name="throttle_node" args="messages throttle_topic 20.0 chi_des_endeffector"/>
+    
+ 
+
+
+    ### INVERSE KINEMATICS - NOZZLE POSITION CONTROL ###
+    <node pkg="dynamixel_pkg_avero" type="inv_kin_new_angles.py" name="inverse_kinematics_node"/> 
+    <node pkg="dynamixel_pkg_avero" type="dtc_distributor.py" name="message_distributor_node"/> 
+    <!-- <node pkg="dynamixel_pkg_avero" type="read_write_node.py" name="read_write_dynamixels"/>  -->
+
+    
+    
+</launch>

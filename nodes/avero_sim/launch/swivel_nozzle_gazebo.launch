@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  ### JOYSTICK 
+  <node pkg="joy" type="joy_node" name="joy_node">
+    <param name="autorepeat_rate" value="50"/>
+  </node>
+  <node pkg="avero_sim" type="swivel_joy_to_chi.py" name="joy_to_chi">
+    
+  </node>
+
+  ### INVERSE KINEMATICS - NOZZLE POSITION CONTROL ###
+  <node pkg="dynamixel_pkg_avero" type="inv_kin_new_angles.py" name="inverse_kinematics_node"/> 
+  <node pkg="dynamixel_pkg_avero" type="dtc_distributor.py" name="message_distributor_node"/>
+  <node pkg="avero_sim" type="swivel_angles_to_motor.py" name="angles_to_motor"/>
+
+  ### SPAWN SWIVEL NOZZLE 
+  <!-- ************************ -->
+  <!-- ****** Parameters ****** -->
+  <!-- ************************ -->
+
+  <arg name="mav_name" default="drone"/>
+  <param name="robot_namespace" value="drone"/> 
+  <param name="robot_description" command="xacro '$(find avero_sim)/urdf/swivel_nozzle_V3.xacro'"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find avero_sim)/worlds/avero.world" />
+    <arg name="debug" value="false" />
+    <arg name="paused" value="false" />
+    <arg name="gui" value="true" />
+    <arg name="verbose" value="false" />
+    <arg name="use_sim_time" value="true" />
+  </include>
+
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" output="screen" respawn="false" 
+        args="-param robot_description -urdf -model $(arg mav_name) -x 0.5 -y 0 -z 0.51 -Y -1.5708"/>
+
+</launch>

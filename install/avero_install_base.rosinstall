@@ -1,0 +1,92 @@
+- git:
+    local-name: DynamixelSDK
+    uri: git@github.com:ROBOTIS-GIT/DynamixelSDK.git
+- git:
+    local-name: lpp
+    uri: git@github.com:ethz-asl/lpp.git
+- git:
+    local-name: mav_ui
+    uri: git@github.com:ethz-asl/mav_ui.git
+- git:
+     local-name: catkin_simple
+     uri: git@github.com:catkin/catkin_simple.git
+- git:
+     local-name: eigen_catkin
+     uri: git@github.com:ethz-asl/eigen_catkin.git
+- git:
+    local-name: nlop
+    uri: git@github.com:ethz-asl/nlopt.git
+- git:
+    local-name: mav_omav
+    uri: git@github.com:ethz-asl/mav_omav.git
+- git:
+    local-name: avero_duct_simulator
+    uri: git@github.com:lawick/avero_duct_simulator.git
+    version: feature/avero_multi_duct
+- git: 
+    local-name: mav_control_rw_devel
+    uri: git@github.com:ethz-asl/mav_control_rw_devel.git
+- git:
+    local-name: mav_trajectory_generation
+    uri: git@github.com:ethz-asl/mav_trajectory_generation.git
+    version: feature/6dof_trajectories
+- git:
+    local-name: octomap_ros
+    uri: git@github.com:OctoMap/octomap_ros.git
+    version: melodic-devel
+- git:
+    local-name: mav_imu
+    uri: git@github.com:ethz-asl/mav_imu.git
+- git: 
+    local-name: vrpn_catkin
+    uri: git@github.com:ethz-asl/vrpn_catkin.git
+- git:
+    local-name: eigen_catkin
+    uri: git@github.com:ethz-asl/eigen_catkin.git
+- git: 
+    local-name: omav_hovery
+    uri: git@github.com:ethz-asl/omav_hovery.git
+- git: 
+    local-name: omav_comm
+    uri: git@github.com:ethz-asl/omav_comm.git
+- git:
+    local-name: mav_comm
+    uri: git@github.com:ethz-asl/mav_comm.git
+    version: feature/all_control
+- git:
+    local-name: mav_imu
+    uri: git@github.com:ethz-asl/mav_imu.git
+- git:
+    local-name: eigen_checks
+    uri: git@github.com:ethz-asl/eigen_checks.git
+- git:
+    local-name: glog_catkin
+    uri: git@github.com:ethz-asl/glog_catkin.git
+- git:
+    local-name: yaml_cpp_catkin
+    uri: git@github.com:ethz-asl/yaml_cpp_catkin.git
+- git:
+    local-name: ethzasl_msf
+    uri: git@github.com:ethz-asl/ethzasl_msf.git
+- git:
+    local-name: mav_quail
+    uri: git@github.com:ethz-asl/mav_quail.git
+- git:
+    local-name: octomap_msgs
+    uri: git@github.com:OctoMap/octomap_msgs.git
+    version: melodic-devel
+- git: 
+    local-name: ros_vrpn_client
+    uri: git@github.com:ethz-asl/ros_vrpn_client.git
+- git: 
+    local-name: bota_driver
+    uri: https://gitlab.com/botasys/bota_driver.git
+- git: 
+    local-name: imu_tools
+    uri: git@github.com:CCNYRoboticsLab/imu_tools.git
+- git: 
+    local-name: state_monitor
+    uri: git@github.com:ethz-asl/state_monitor.git
+- git: 
+    local-name: variant
+    uri: git@github.com:ANYbotics/variant.git

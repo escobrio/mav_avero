@@ -1,0 +1,7 @@
+max_wrench:
+  px: 5.0
+  py: 5.0
+  pz: 80.0
+  rx: 1.5
+  ry: 1.5
+  rz: 1.5

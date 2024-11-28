@@ -1,0 +1,355 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="drone">
+
+    <!-- Macros definition -->
+    <xacro:macro name="nozzle" params="nozzle_name">
+        <link name="${nozzle_name}">
+            <visual>
+                <geometry>
+                    <mesh filename="package://avero_sim/meshes/NozzleV1.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://avero_sim/meshes/NozzleV1.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="0.001"/>
+                <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0.0" izz="0.001"/>
+            </inertial>
+        </link>
+    </xacro:macro>
+
+    <xacro:macro name="frame_to_nozzle_joint" params="parent child x y z roll pitch yaw">
+        <joint name="${parent}_to_${child}" type="revolute">
+            <origin xyz="${x} ${y} ${z}" rpy="${roll} ${pitch} ${yaw}"/>
+            <parent link="frame"/>
+            <child link="${child}"/>
+            <axis xyz="0 1 0"/>
+            <limit lower="-50.28" upper="50.28" velocity="50.0" effort="1000.0"/>
+        </joint>
+    </xacro:macro>
+
+    <xacro:macro name="nozzle_to_nozzle_joint" params="parent child">
+        <joint name="${parent}_to_${child}" type="revolute">
+            <origin xyz="0.028 0.068 0" rpy="0 0 -0.7854"/>
+            <parent link="${parent}"/>
+            <child link="${child}"/>
+            <axis xyz="0 1 0"/>
+            <limit lower="-50.28" upper="50.28" velocity="50.0" effort="1000.0"/>
+        </joint>
+    </xacro:macro>
+
+    <xacro:macro name="rotor" params="number parent">
+        <link name="rotor_${number}">
+            <visual>
+                <geometry>
+                    <box size="0.09 0.01 0.01" />
+                </geometry>
+            </visual>
+            <collision>
+                <geometry>
+                    <box size="0.01 0.005 0.005" />
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="0.0065"/>
+                <inertia ixx="0.045" ixy="0.0" ixz="0.0" iyy="0.02" iyz="0.0" izz="0.003"/>
+            </inertial>
+        </link>
+
+        <joint name="rotor_${number}_joint" type="continuous">
+            <origin xyz="0.028 0.068 0" rpy="1.5708 0 -0.7854"/>
+            <parent link="${parent}"/>
+            <child link="rotor_${number}"/>
+            <axis xyz="0 0 1"/>
+        </joint>
+    </xacro:macro>
+
+    <!-- frame and base_link Definition -->
+    <link name="frame">
+        <visual>
+            <geometry>
+                <mesh filename="package://avero_sim/meshes/FrameV1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://avero_sim/meshes/CollisionFrameV1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+         <inertial>
+            <mass value="3"/>
+            <inertia ixx="0.075" ixy="0" ixz="0" iyy="0.075" iyz="0.0" izz="0.138"/>
+        </inertial>
+    </link>
+
+    <link name="base_link">
+        
+        <mass value="0.001" />
+            
+        
+    </link>
+
+    <joint name="base_joint" type="fixed">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="frame"/>
+    </joint>
+
+
+    <!-- 6 nozzles -->
+    <xacro:nozzle nozzle_name="nozzle_1a" />
+    <xacro:nozzle nozzle_name="nozzle_1b" />
+    <xacro:nozzle nozzle_name="nozzle_2a" />
+    <xacro:nozzle nozzle_name="nozzle_2b" />
+    <xacro:nozzle nozzle_name="nozzle_3a" />
+    <xacro:nozzle nozzle_name="nozzle_3b" />
+
+    <!-- 6 joints -->
+    <xacro:frame_to_nozzle_joint parent="frame" child="nozzle_1a" x="0.187"  y="-0.325" z="0" roll="3.1416" pitch="1.5708" yaw="0"/>
+    <xacro:frame_to_nozzle_joint parent="frame" child="nozzle_2a" x="0.187"  y="0.325"  z="0" roll="0.5236" pitch="1.5708" yaw="-0.5236"/>
+    <xacro:frame_to_nozzle_joint parent="frame" child="nozzle_3a" x="-0.375" y="0"      z="0" roll="-1.5708" pitch="1.5708" yaw="-0.5236"/>
+
+    <xacro:nozzle_to_nozzle_joint parent="nozzle_1a" child="nozzle_1b"/>
+    <xacro:nozzle_to_nozzle_joint parent="nozzle_2a" child="nozzle_2b"/>
+    <xacro:nozzle_to_nozzle_joint parent="nozzle_3a" child="nozzle_3b"/>
+
+    <!-- Color -->
+    <gazebo reference="frame">
+      <material>Gazebo/White</material>
+    </gazebo>
+    <gazebo reference="nozzle_1a">
+      <material>Gazebo/Turquoise</material>
+    </gazebo>
+    <gazebo reference="nozzle_2a">
+      <material>Gazebo/Turquoise</material>
+    </gazebo>
+    <gazebo reference="nozzle_3a">
+      <material>Gazebo/Turquoise</material>
+    </gazebo>
+    <gazebo reference="nozzle_1b">
+      <material>Gazebo/White</material>
+    </gazebo>
+    <gazebo reference="nozzle_2b">
+      <material>Gazebo/White</material>
+    </gazebo>
+    <gazebo reference="nozzle_3b">
+      <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- 3 rotors -->
+    <xacro:rotor number="1" parent="nozzle_1b"/>
+    <xacro:rotor number="2" parent="nozzle_2b"/>
+    <xacro:rotor number="3" parent="nozzle_3b"/>
+
+    <!-- ATTENTION AVERO, ALL THESE PROPERTIES WERE TAKEN FROM STORK -->
+
+    <!-- thrust = +- thrust_constant * rot_velocity²  -->
+    <xacro:property name="thrust_constant" value="${6e-05}" />
+    <!-- drag_torque = thrust * moment_constant -->
+    <xacro:property name="moment_constant" value="0.016" />
+    <!-- [m] -->
+    <xacro:property name="time_constant_up" value="0.0125" />
+    <!-- [s] TODO: -->
+    <xacro:property name="time_constant_down" value="0.025" />
+    <!-- [s] TODO: -->
+    <xacro:property name="min_rot_velocity" value="100" />
+    <xacro:property name="max_rot_velocity" value="2000" />
+    <!-- [rad/s] -->  <!-- Velocity to produce 1 kg thrust -->
+    <xacro:property name="rotor_drag_coefficient" value="${1.0e-4}" />
+    <!-- TODO:-->
+    <xacro:property name="rolling_moment_coefficient" value="0.000001" />
+
+    <!-- Relationship between the p, d gain and the closed-loop dynamics behaviour of the system:
+    It behaves like a second-order system in the frequency domain: Y(s) = U(s)*(ds + p)/(Is**2 + ds + p)
+    Y(s) is the Laplace transform of the actual tilt motor angle and U(s) is the one of the tilt motor angle command, p and d are the gains, I is the inertia of the link.
+    The pid gain set here corresponds to p = 1200, i = 1000, d =500 on the firmware.
+    -->
+    <xacro:property name="tilt_control_mode" value="position" />
+    <xacro:property name="p_gain" value="1.0" />
+    <xacro:property name="i_gain" value="0.0" />
+    <xacro:property name="d_gain" value="0.35" />
+    <xacro:property name="servo_zero_offset" value="0.0" />
+
+    <!-- Added from stork_body.xacro -->
+    <xacro:property name="rotor_velocity_slowdown_sim" value="100" />
+
+    <!-- Add motors. -->
+    <gazebo>
+        <plugin name="multimotor_plugin" filename="librotors_gazebo_multimotor_plugin.so">
+        <!-- <robotNamespace>$(arg mav_name)</robotNamespace> -->
+        <rotors>
+            <rotor>
+                <jointName>rotor_1_joint</jointName>
+                <linkName>rotor_1</linkName>
+                <spinDirection>ccw</spinDirection>
+                <timeConstantUp>${time_constant_up}</timeConstantUp>
+                <timeConstantDown>${time_constant_down}</timeConstantDown>
+                <minRotVelocity>${min_rot_velocity}</minRotVelocity>
+                <maxRotVelocity>${max_rot_velocity}</maxRotVelocity>
+                <thrustConstant>${thrust_constant}</thrustConstant>
+                <momentConstant>${moment_constant}</momentConstant>
+                <rotorDragCoefficient>${rotor_drag_coefficient}</rotorDragCoefficient>
+                <rollingMomentCoefficient>${rolling_moment_coefficient}</rollingMomentCoefficient>
+                <rotorVelocitySlowdownSim>${rotor_velocity_slowdown_sim}</rotorVelocitySlowdownSim>
+            </rotor>
+            <rotor>
+                <jointName>rotor_2_joint</jointName>
+                <linkName>rotor_2</linkName>
+                <spinDirection>ccw</spinDirection>
+                <timeConstantUp>${time_constant_up}</timeConstantUp>
+                <timeConstantDown>${time_constant_down}</timeConstantDown>
+                <minRotVelocity>${min_rot_velocity}</minRotVelocity>
+                <maxRotVelocity>${max_rot_velocity}</maxRotVelocity>
+                <thrustConstant>${thrust_constant}</thrustConstant>
+                <momentConstant>${moment_constant}</momentConstant>
+                <rotorDragCoefficient>${rotor_drag_coefficient}</rotorDragCoefficient>
+                <rollingMomentCoefficient>${rolling_moment_coefficient}</rollingMomentCoefficient>
+                <rotorVelocitySlowdownSim>${rotor_velocity_slowdown_sim}</rotorVelocitySlowdownSim>
+            </rotor>
+            <rotor>
+                <jointName>rotor_3_joint</jointName>
+                <linkName>rotor_3</linkName>
+                <spinDirection>ccw</spinDirection>
+                <timeConstantUp>${time_constant_up}</timeConstantUp>
+                <timeConstantDown>${time_constant_down}</timeConstantDown>
+                <minRotVelocity>${min_rot_velocity}</minRotVelocity>
+                <maxRotVelocity>${max_rot_velocity}</maxRotVelocity>
+                <thrustConstant>${thrust_constant}</thrustConstant>
+                <momentConstant>${moment_constant}</momentConstant>
+                <rotorDragCoefficient>${rotor_drag_coefficient}</rotorDragCoefficient>
+                <rollingMomentCoefficient>${rolling_moment_coefficient}</rollingMomentCoefficient>
+                <rotorVelocitySlowdownSim>${rotor_velocity_slowdown_sim}</rotorVelocitySlowdownSim>
+            </rotor>
+        </rotors>
+            <servos>
+                <servo>
+                <jointName>frame_to_nozzle_1a</jointName>
+                <spinDirection>ccw</spinDirection>
+                <controlMode>${tilt_control_mode}</controlMode>
+                <maxRotVelocity>${10}</maxRotVelocity>
+                <minRotPosition>${-pi*6}</minRotPosition>
+                <maxRotPosition>${pi*6}</maxRotPosition>
+                <zeroOffset>${servo_zero_offset}</zeroOffset>
+                <joint_control_pid>
+                    <p>${p_gain}</p>
+                    <i>${i_gain}</i>
+                    <d>${d_gain}</d>
+                    <iMax>1.0</iMax>
+                    <iMin>-1.0</iMin>
+                    <cmdMax>2.0</cmdMax>
+                    <cmdMin>-2.0</cmdMin>
+                </joint_control_pid>
+                </servo>
+                <servo>
+                <jointName>nozzle_1a_to_nozzle_1b</jointName>
+                <spinDirection>ccw</spinDirection>
+                <controlMode>${tilt_control_mode}</controlMode>
+                <maxRotVelocity>${10}</maxRotVelocity>
+                <minRotPosition>${-pi*6}</minRotPosition>
+                <maxRotPosition>${pi*6}</maxRotPosition>
+                <zeroOffset>${servo_zero_offset}</zeroOffset>
+                <joint_control_pid>
+                    <p>${p_gain}</p>
+                    <i>${i_gain}</i>
+                    <d>${d_gain}</d>
+                    <iMax>1.0</iMax>
+                    <iMin>-1.0</iMin>
+                    <cmdMax>2.0</cmdMax>
+                    <cmdMin>-2.0</cmdMin>
+                </joint_control_pid>
+                </servo>
+                <servo>
+                <jointName>frame_to_nozzle_2a</jointName>
+                <spinDirection>ccw</spinDirection>
+                <controlMode>${tilt_control_mode}</controlMode>
+                <maxRotVelocity>${10}</maxRotVelocity>
+                <minRotPosition>${-pi*6}</minRotPosition>
+                <maxRotPosition>${pi*6}</maxRotPosition>
+                <zeroOffset>${servo_zero_offset}</zeroOffset>
+                <joint_control_pid>
+                    <p>${p_gain}</p>
+                    <i>${i_gain}</i>
+                    <d>${d_gain}</d>
+                    <iMax>1.0</iMax>
+                    <iMin>-1.0</iMin>
+                    <cmdMax>2.0</cmdMax>
+                    <cmdMin>-2.0</cmdMin>
+                </joint_control_pid>
+                </servo>
+                <servo>
+                <jointName>nozzle_2a_to_nozzle_2b</jointName>
+                <spinDirection>ccw</spinDirection>
+                <controlMode>${tilt_control_mode}</controlMode>
+                <maxRotVelocity>${10}</maxRotVelocity>
+                <minRotPosition>${-pi*6}</minRotPosition>
+                <maxRotPosition>${pi*6}</maxRotPosition>
+                <zeroOffset>${servo_zero_offset}</zeroOffset>
+                <joint_control_pid>
+                    <p>${p_gain}</p>
+                    <i>${i_gain}</i>
+                    <d>${d_gain}</d>
+                    <iMax>1.0</iMax>
+                    <iMin>-1.0</iMin>
+                    <cmdMax>2.0</cmdMax>
+                    <cmdMin>-2.0</cmdMin>
+                </joint_control_pid>
+                </servo>
+                <servo>
+                <jointName>frame_to_nozzle_3a</jointName>
+                <spinDirection>ccw</spinDirection>
+                <controlMode>${tilt_control_mode}</controlMode>
+                <maxRotVelocity>${10}</maxRotVelocity>
+                <minRotPosition>${-pi*6}</minRotPosition>
+                <maxRotPosition>${pi*6}</maxRotPosition>
+                <zeroOffset>${servo_zero_offset}</zeroOffset>
+                <joint_control_pid>
+                    <p>${p_gain}</p>
+                    <i>${i_gain}</i>
+                    <d>${d_gain}</d>
+                    <iMax>1.0</iMax>
+                    <iMin>-1.0</iMin>
+                    <cmdMax>2.0</cmdMax>
+                    <cmdMin>-2.0</cmdMin>
+                </joint_control_pid>
+                </servo>
+                <servo>
+                <jointName>nozzle_3a_to_nozzle_3b</jointName>
+                <spinDirection>ccw</spinDirection>
+                <controlMode>${tilt_control_mode}</controlMode>
+                <maxRotVelocity>${10}</maxRotVelocity>
+                <minRotPosition>${-pi*6}</minRotPosition>
+                <maxRotPosition>${pi*6}</maxRotPosition>
+                <zeroOffset>${servo_zero_offset}</zeroOffset>
+                <joint_control_pid>
+                    <p>${p_gain}</p>
+                    <i>${i_gain}</i>
+                    <d>${d_gain}</d>
+                    <iMax>1.0</iMax>
+                    <iMin>-1.0</iMin>
+                    <cmdMax>2.0</cmdMax>
+                    <cmdMin>-2.0</cmdMin>
+                </joint_control_pid>
+                </servo>
+            </servos>
+        </plugin>
+
+        
+        
+       
+    </gazebo>
+
+
+
+    <gazebo>
+        <plugin name="baselink_transfo" filename="libgazebo_ros_p3d.so">
+          <frameName>map</frameName>
+          <topicName>pose_base_link</topicName>
+          <bodyName>base_link</bodyName>
+          <updateRate>100.0</updateRate>
+        </plugin>
+      </gazebo>
+
+</robot>

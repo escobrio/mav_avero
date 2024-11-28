@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+
+<launch>
+<arg name="interface_type" default="avero" />
+
+<arg name="input_command" default="egal"/>
+
+
+
+<!--Steps Nozzle-->
+<arg name="steps_base_nozzle" default="90.0" />
+<arg name="steps_top_nozzle" default="90.0" />
+
+<!--PWM-->
+<arg name="start_pwm" default="1050" /> <!--NOT NEEEDEDFirst pwm which gets tested-->
+<arg name="steps_pwm" default="200.0" /> <!--NOT NEEEDED All wieviele pwm testen?-->
+<arg name="max_ramp_vel" default="60" /> <!-- NOT NEEDED-->
+
+
+<!--Ablauf-->
+<arg name="reset_time" default="3.0" />
+<arg name="ramp_up_time" default="13" />
+<arg name="holding_time" default="3.0" />
+<arg name="decay_time" default="3.0" />
+
+<!--Offset's-->
+ <!-- Testing -->
+ <!-- Not Needed atm - bc we home in the setup...  -->
+  <arg name="offset_base" default="0" />
+  <arg name="offset_top" default="0" />
+
+  <arg name="offset_base1" default="0"/>
+  <arg name="offset_base2" default="0"/>
+  <arg name="offset_base3" default="0"/>
+  <arg name="offset_top1" default="0"/>
+  <arg name="offset_top2" default="0"/>
+  <arg name="offset_top3" default="0"/>
+  
+
+<!--Ports and Interface-->
+  <!-- Dynamixel -->
+    <arg name="dynamixel_port" default="/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT4TFRC4-if00-port0" />
+  <!-- Arduino  -->
+    <arg name="arduino_port" default="/dev/serial/by-id/usb-1a86_USB2.0-Ser_-if00-port0" />
+  <!-- Sensor -->
+    <arg name="rokubimini_port" default= "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_AU6MB448-if00-port0"/>
+
+
+<!--ID's-->
+<arg name="id_base" default="104" />
+<arg name="id_top" default="105" />
+<arg name="sensor" default="false"/>
+<arg name="max_pwm_signal" default="1050.0" /> <!-- Safety: Don' change the Value here only over terminal!!!-->
+
+<!--Sensor-->
+<arg name="ft_sensor_a_name" default="ft_sensor0"/>
+
+<node name="bus0" pkg="rokubimini_serial" type="rokubimini_serial_bus_manager_node"  output="screen" required="true">
+  
+  <param name="num_spinners" type="int" value="1"/>
+  
+  <!--    The time_step parameter sets the ROS publishing frequency, not the sensor update rate -->
+  <!--    If no time_step is set, the topic is published with the frequency of the sensor. -->
+  <!--    <param name="time_step"                                 type="double"   value="0.01"/>-->
+ 
+  <param name="port"  type="string"   value="$(arg rokubimini_port)"/>
+  <param name="rokubiminis/$(arg ft_sensor_a_name)/name" type="string" value="$(arg ft_sensor_a_name)"/>
+  <param name="rokubiminis/$(arg ft_sensor_a_name)/product_name" type="string" value="BFF-xxx-xx-xx-xx"/>
+  <rosparam ns="rokubiminis/$(arg ft_sensor_a_name)" command="load" file="$(find rokubimini)/config/rokubimini_sensor.yaml" />
+</node>
+
+<!-- Launch the testing Node -->
+<node pkg="avero_ctrl" type="AveroTestingNode" name="AveroTestingNode" required="true" clear_params="true" output="screen">
+  
+  <param name="input_command" type="string" value="$(arg input_command)"/>
+
+  <param name="steps_base_nozzle" type="double" value="$(arg steps_base_nozzle)"/>
+  <param name="steps_top_nozzle" type="double" value="$(arg steps_top_nozzle)"/>
+  <param name="steps_pwm" type="double" value="$(arg steps_pwm)"/>
+  <param name="max_pwm_signal" type="double" value="$(arg max_pwm_signal)"/>
+  
+  
+  <param name="holding_time" type="double" value="$(arg holding_time)"/>
+  <param name="ramp_up_time" type="double" value="$(arg ramp_up_time)"/>
+  <param name="reset_time" type="double" value="$(arg reset_time)"/>
+  <param name="decay_time" type="double" value="$(arg decay_time)"/>
+
+
+  <param name="max_ramp_vel" type="double" value="$(arg max_ramp_vel)"/>
+  <param name="start_pwm" type="double" value="$(arg start_pwm)"/>
+<!-- Offsets -->
+ <!-- Testing -->
+  <param name="offset_base" type="int" value="$(arg offset_base)"/>
+  <param name="offset_top" type="int" value="$(arg offset_top)"/>
+ <!-- Show -->
+  <param name="offset_base1" type="int" value="$(arg offset_base1)"/>
+  <param name="offset_base2" type="int" value="$(arg offset_base2)"/>
+  <param name="offset_base3" type="int" value="$(arg offset_base3)"/>
+  <param name="offset_top1" type="int" value="$(arg offset_top1)"/>
+  <param name="offset_top2" type="int" value="$(arg offset_top2)"/>
+  <param name="offset_top3" type="int" value="$(arg offset_top3)"/>
+
+<!-- Ports and Interface -->
+  <param name="interface_type" type="string" value="$(arg interface_type)" />
+  <param name="dynamixel_port" type="string" value="$(arg dynamixel_port)" />
+  <param name="arduino_port" type="string" value="$(arg arduino_port)" />
+
+<!-- ID's -->
+  <param name="id_base" type="double" value="$(arg id_base)" />
+  <param name="id_top" type="double" value="$(arg id_top)" />
+</node>
+
+</launch>

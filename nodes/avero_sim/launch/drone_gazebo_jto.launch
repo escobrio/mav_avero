@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- Use sim time -->
+  <param name="use_sim_time" value="true" />
+
+  ### SPAWN DRONE 
+  <arg name="mav_name" default="drone"/>
+  <param name="robot_namespace" value="drone"/> 
+  <param name="robot_description" command="xacro '$(find avero_sim)/urdf/drone.xacro'"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find avero_sim)/worlds/avero.world" />
+    <arg name="debug" value="false" />
+    <arg name="paused" value="false" />
+    <arg name="gui" value="true" />
+    <arg name="verbose" value="false" />
+    <arg name="use_sim_time" value="true" />
+  </include>
+
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" output="screen" respawn="false" 
+        args="-param robot_description -urdf -model $(arg mav_name) -x 0 -y 0 -z 0.5"/>
+
+  ### LOAD PARAMETERS ###
+  <arg name="node_start_delay"  />    
+  <include file="$(find avero_ctrl)/launch/launch_only_controller_params.launch"/>
+
+
+  ### AveroHoveryNode with the simulation adapter
+  <node pkg="avero_ctrl" type="AveroSimulationNode" name="AveroSimulationNode"/>
+
+  ### Allocation
+  <!-- <node pkg="avero_ctrl" type="allocation.py" name="allocation"/> -->
+  
+
+
+  <!-- damit die tf richtig published werden - die die dann in rviz angezeigt werden -->
+   ### ROBOT STATE PUBLISHER ###
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    
+    <param name="publish_frequency" value="100" />
+    
+  </node>
+
+  ### JOINT STATE PUBLISHER  and tf from map to base publisher###
+  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher">
+    <param name="use_gui" value="true" />
+  </node>
+  <node name="tf_publisher" pkg="avero_sim" type="tf_publisher"/>
+
+  ### starting up rviz###
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find avero_sim)/rviz/drone_gazebo.rviz" />
+
+  ### JOYSTICK TO DESIRED WRENCH
+  <include file="$(find avero_joy)/launch/joy_to_odom.launch"/>
+
+
+
+    ### AveroHoveryNode with the simulation adapter
+  <!-- <node pkg="avero_ctrl" type="AveroSimulationNode" name="AveroSimulationNode" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' "/> -->
+
+  ### Allocation
+  <!-- <node pkg="avero_ctrl" type="allocation.py" name="allocation" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' "/> -->
+
+
+  <!-- ### INVERSE KINEMATICS - NOZZLE POSITION CONTROL ###
+  <node pkg="joy" type="joy_node" name="joy_node">
+    <param name="autorepeat_rate" value="1"/>
+  </node>
+  <node pkg="avero_sim" type="drone_joy_to_chi.py" name="joy_to_chi"/>
+  <node pkg="dynamixel_pkg_avero" type="inv_kin_new_angles.py" name="inverse_kinematics_node"/> 
+  <node pkg="dynamixel_pkg_avero" type="dtc_distributor.py" name="message_distributor_node"/>
+  <node pkg="avero_sim" type="drone_angles_to_motor.py" name="angles_to_motor"/> -->
+
+
+</launch>

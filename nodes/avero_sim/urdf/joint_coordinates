@@ -1,0 +1,12 @@
+Thanks Sämi for measuring the joint positions in CAD NX :)
+
+Nozzel_1a is at (x, y, z) = (0.325, -0.187, 0) [m] with axis n = (1/2, -sqrt(3)/2, 0)
+Nozzel_2a is at (x, y, z) = (-0.325, -0.187, 0) [m] with axis n = (-1, 0, 0)
+Nozzel_3a is at (x, y, z) = (0, 0.375, 0) [m] with axis n = (1/2, sqrt(3)/2, 0)
+
+Nozzel_ib is at (x, y, z) = (0, 0.068, -0.028) [m] with axis n = (0, 1/2, -1/2)
+
+
+There are 3 Nozzles consisting of part a and b.
+
+CORRECT INERTIA HAS TO BE ADDED!!!

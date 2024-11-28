@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+
+    <param name="robot_description" command="xacro '$(find avero_sim)/urdf/drone_V3.xacro'" />
+    <arg name="rviz_config_file" default="$(find avero_sim)/config/avero_first_try.rviz"/>
+    
+    
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"></node>
+    <node pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" name="joint_state_publisher_gui"></node>
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_config_file)"></node>
+
+</launch>

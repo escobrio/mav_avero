@@ -1,0 +1,13 @@
+max_errors: 
+  px: 0.5 # [m]
+  py: 0.5
+  pz: 0.5
+  vx: 3.0 # [m/s]
+  vy: 3.0
+  vz: 3.0
+  rx: 0.1 # [i wish i knew what units this is in]
+  ry: 0.1
+  rz: 0.1
+  omegax: 1.0 # [rad/s i guess?]
+  omegay: 1.0
+  omegaz: 1.0

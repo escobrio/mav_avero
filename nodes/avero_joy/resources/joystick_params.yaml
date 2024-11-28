@@ -1,0 +1,6 @@
+joystick_params:
+  vel_xy: 1
+  vel_z: 1
+  velrot_xy: 0.3
+  velrot_z: 0.3
+  enable_velocity_reference: false # If true, the joystick will publish velocity & position commands. If false, the joystick will publish position commands, while command velocity is always zero.

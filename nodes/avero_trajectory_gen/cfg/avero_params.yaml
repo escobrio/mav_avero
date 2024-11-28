@@ -1,0 +1,6 @@
+# Here you can set the maximum velocities and accelerations for the trajectory generation planner
+
+max_v: 0.4
+max_a: 0.4
+max_ang_v: 2
+max_ang_a: 2

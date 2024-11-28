@@ -1,0 +1,48 @@
+dimensions: 6
+vertices:
+  - vertex:
+      position:    [0, 0, 1]
+      orientation: [0, 0, 0]
+  - vertex:
+      position:    [0.5, 0.5, 1]
+      orientation: [0, 0, 0.01]
+  - vertex:
+      position:    [-0.5, 0.5, 1]
+      orientation: [0, 0, 0]
+  - vertex:
+      position:    [0, 0, 1]
+      orientation: [0, 0, 0.01]
+  - vertex:
+      position:    [0.5, -0.5, 1]
+      orientation: [0, 0, 0]
+  - vertex:
+      position:    [-0.5, -0.5, 1]
+      orientation: [0, 0, 0.01]
+  - vertex:
+      position:    [0, 0, 1]
+      orientation: [0, 0, 0]
+  - vertex:
+      position:    [0.5, 0.5, 1]
+      orientation: [0, 0, 0.01]
+  - vertex:
+      position:    [-0.5, 0.5, 1]
+      orientation: [0, 0, 0]
+  - vertex:
+      position:    [0, 0, 1]
+      orientation: [0, 0, 0.01]
+  - vertex:
+      position:    [0.5, -0.5, 1]
+      orientation: [0, 0, 0]
+  - vertex:
+      position:    [-0.5, -0.5, 1]
+      orientation: [0, 0, 0.01]
+  - vertex:
+      position:    [0, 0, 1]
+      orientation: [0, 0, 0]
+
+
+  # etc.
+
+## Bugs:
+# If two following vertices are equal in position or orientation,
+# The segment time is calculated to be 0 and that messes up the algorithm

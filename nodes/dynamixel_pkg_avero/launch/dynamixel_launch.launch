@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- open a terminal and type the command "roslaunch dynamixel_pkg dynamixel_launch.launch" -->
+
+<launch>
+
+    ### INVERSE KINEMATICS - NOZZLE POSITION CONTROL ###
+    <node pkg="dynamixel_pkg_avero" type="inv_kin_new_angles.py" name="inverse_kinematics_node"/> 
+    <node pkg="dynamixel_pkg_avero" type="dtc_distributor.py" name="message_distributor_node"/> 
+    <node pkg="dynamixel_pkg_avero" type="read_write_node.py" name="read_write_dynamixels"/> 
+
+
+</launch>

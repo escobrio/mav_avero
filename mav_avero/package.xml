@@ -1,0 +1,27 @@
+<package format="2">
+  <name>mav_avero</name>
+  <version>1.0.0</version>
+  <description>The code for AVERO Drone</description>
+  <maintainer email="lawick@ethz.ch">Laurin Wick</maintainer>
+
+  <license>TBD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>catkin_simple</buildtool_depend>
+
+  <!-- Libraries-->
+  <!-- Add library packages - the ones in the message -->
+  <depend>avero_ctrl</depend>
+  <depend>avero_joy</depend>
+  <depend>avero_msgs</depend>
+  <depend>avero_sim</depend>
+  <depend>avero_state_est</depend> 
+  <depend>avero_testing</depend>
+  <depend>dynamixel_pkg_avero</depend>
+  <depend>imu_to_nozzle</depend>
+
+  <export>
+    <metapackage/>
+  </export>
+  
+</package>

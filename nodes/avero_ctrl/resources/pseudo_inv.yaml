@@ -1,0 +1,5 @@
+pseudo_inv:
+  w_pwm: 7500
+  w_phi1: 1
+  w_phi2: 1
+  damping: 0.000007

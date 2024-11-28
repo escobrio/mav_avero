@@ -1,0 +1,10 @@
+# Pitch from 0rad to 0.7rad
+
+dimensions: 6
+vertices:
+  - vertex:
+      position:    [0, 0, 2]
+      orientation: [0, 0, 0]
+  - vertex:
+      position:    [0, 0, 2]
+      orientation: [0, 0.2, 0]

@@ -1,0 +1,11 @@
+# Check first in Rviz that you defined safe trajectories
+# roslaunch avero_trajectory_gen simulation.launch
+
+# Buttons 1-6 are configured to read in polynomial segments defined in trajectory_btn{i}.yaml files. 
+# Buttons 7-12 are configured to read in vertices, set maximal velocities and accelerations in cfg/avero_params.yaml
+
+# Define segments as polynomials over time
+# N: Degree of polynomial p[0] + p[1]*t + p[2]*t² ...
+# D: Dimension of segment
+# time: Time to execute this polynomial
+# coefficients: has to be a N*D matrix

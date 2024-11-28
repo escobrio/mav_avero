@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+
+<launch>
+  <arg name="mav_name"               default="Avero_Dove" />
+
+  <include file="$(find ros_vrpn_client)/launch/asl_vicon.launch">
+      
+      <arg name="object_name" value="$(arg mav_name)" /> 
+      <param name="vrpn_server_ip" value="10.10.10.5"/>
+ 
+      <!-- Rotation of the vicon frame in the imu frame
+      <arg name="q_vi_w" value="0.999828" />
+      <arg name="q_vi_x" value="0.0167064" />
+      <arg name="q_vi_y" value="-0.007213" />
+      <arg name="q_vi_z" value="-0.003516" />
+      <arg name="t_vi_x" value="0.0" />
+      <arg name="t_vi_y" value="0.0" />
+      <arg name="t_vi_z" value="0.0" /> -->
+   </include>
+   
+   <group ns="$(arg mav_name)">
+
+     <!--<include file="$(find mav_imu)/launch/imu.launch">
+      <arg name="spi_path" value="/dev/spidev0.0"/>
+      <arg name="frequency" value="205" />
+     </include>--> 
+
+    <node name="mav_imu_node" pkg="mav_imu" type="mav_imu_node" launch-prefix="" output="screen">
+        <param name="imu" value="adis16448" type="string"/>
+        <param name="spi_path" value="/dev/spidev0.0" type="string"/>
+        <param name="frequency" value="200" type="int"/>
+    </node>
+	
+     <node name="msf" pkg="msf_updates" type="pose_sensor" clear_params="true" output="screen">
+      <param name="msf_core/msf_output_frame" value="base" />
+      <rosparam file="$(find avero_state_est)/config/msf_vicon.yaml" />
+      <remap from="msf_core/imu_state_input" to="imu/data_raw" />
+      <remap from="msf_updates/transform_input" to="vrpn_client/estimated_transform" />
+    </node>
+    
+    <node name="init_vicon_msf" pkg="avero_state_est" type="init_msf.py" output="screen">
+	    <param name="topic" value="/$(arg mav_name)/vrpn_client/estimated_transform" />
+      <param name="msf_scale_topic" value="/$(arg mav_name)/msf/pose_sensor/initialize_msf_scale" />
+      <param name="num_messages" value="10"/>
+    </node>
+
+  </group>
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="odom_to_world_tf" args="0.0 0.0 0.0 0.0 0.0 0.0 odom world"/>
+</launch>

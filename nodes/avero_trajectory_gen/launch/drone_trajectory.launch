@@ -1,0 +1,21 @@
+<launch>
+
+  ### JOYSTICK
+  <node pkg="joy" type="joy_node" name="joy_node"/>
+  
+  ### Trajectory planner
+  <node name="planner" pkg="avero_trajectory_gen" type="trajectory_planner" output="screen">
+      <param name="trajectories_folder" value="$(find avero_trajectory_gen)/trajectories/"/>
+      <rosparam command="load" file="$(find avero_trajectory_gen)/cfg/avero_params.yaml"/>
+      <!-- TODO: remap from uav_pose to odometry topic of the vicon system -->
+      <remap from="uav_pose" to="pose_base_link"/>
+  </node>
+
+  ### Trajectory sampler
+  <node name="sampler" pkg="mav_trajectory_generation_ros" type="trajectory_sampler_node" output="screen">
+      <remap from="path_segments" to="trajectory"/>
+  </node>
+
+  <node name="trajectory_to_odom" pkg="avero_trajectory_gen" type="trajectory_to_odom" output="screen"/>
+  
+</launch>

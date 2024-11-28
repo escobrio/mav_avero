@@ -1,0 +1,19 @@
+# TakeOff
+
+segments:
+  # Fly a cubic polynomial from (0,0,0.75) to (0,0,2)
+  - N: 4
+    D: 3
+    time: 5000000000  # [ns]
+    coefficients:
+      - [0, 0, 0, 0]
+      - [0, 0, 0, 0]
+      - [0.75, 0, 0.15, -0.02]
+  # Rest at (0,0,2)
+  - N: 4
+    D: 3
+    time: 3000000000  # [ns]
+    coefficients:
+      - [0, 0, 0, 0]
+      - [0, 0, 0, 0]
+      - [2, 0, 0, 0]

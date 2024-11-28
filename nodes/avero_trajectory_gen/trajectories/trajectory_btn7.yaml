@@ -1,0 +1,10 @@
+# Hover Up from 0.75m to 1.5m
+
+dimensions: 6
+vertices:
+  - vertex:
+      position:    [0, 0, 0.75]
+      orientation: [0, 0, 0]
+  - vertex:
+      position:    [0, 0, 2]
+      orientation: [0, 0, 0]

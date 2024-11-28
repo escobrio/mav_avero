@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!--Change these to adjust the Testing:-->
+    <!-- Max speed to test -->
+    <arg name="endValue" default="1100.0" />
+    <!--Holding Time, how long the end RPM is held-->
+    <arg name="holdingTime" default="20" />
+    <!-- Acceleration to ramp up to goal speed RPM/s-->
+    <arg name="maxRampRPM" default="80.0" />
+
+
+  <!--DO NOT change these-->
+    <!-- Interface to command the ESCs. Values [dummy, vesc] -->
+    <arg name="interface" default="avro" /> 
+    <!-- Device to open to connect the ESCs. -->
+    <arg name="device" default="/dev/usb-1a86_USB_Serial-if00-port0" />
+    <!--We start here by tsesting, 0 RPM -->
+    <arg name="startingValue" default="1050.0" />
+
+  <node pkg="avero_testing" type="avero_thrust_testing_node" name="avero_thrust_testing_node" required="true" clear_params="true" output="screen">
+    <param name="startingValue" type="double" value="$(arg startingValue)" />
+    <param name="endValue" type="double" value="$(arg endValue)" />
+    <param name="holdingTime" type="int" value="$(arg holdingTime)"/>
+    <param name="maxRampRPM" type="double" value="$(arg maxRampRPM)" />
+    <param name="interface" type="string" value="$(arg interface)" />
+    <param name="device" type="string" value="$(arg device)" />
+  </node>
+
+</launch>

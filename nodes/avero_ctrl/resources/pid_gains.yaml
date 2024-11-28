@@ -1,0 +1,54 @@
+# PID Gains Configuration
+
+pid_gains:
+    #POSITION 
+    p_kpx: 2.0
+    p_kpy: 2.0
+    p_kpz: 2.0
+
+    p_kdx: 1.0
+    p_kdy: 1.0
+    p_kdz: 1.0
+  
+    p_kix: 0.0
+    p_kiy: 0.0
+    p_kiz: 0.0
+
+    #ORIENTATON
+    r_kpx: 160
+    r_kpy: 160
+    r_kpz: 160.0
+
+    r_kdx: 10
+    r_kdy: 10
+    r_kdz: 20
+
+    r_kix: 0.0
+    r_kiy: 0.0
+    r_kiz: 0.0
+
+    #Working Gains for the Simulation
+    # p_kpx: 2.0
+    # p_kpy: 2.0
+    # p_kpz: 2.0
+
+    # p_kdx: 1.0
+    # p_kdy: 1.0
+    # p_kdz: 1.0
+  
+    # p_kix: 0.0
+    # p_kiy: 0.0
+    # p_kiz: 0.0
+
+    # #ORIENTATON
+    # r_kpx: 160
+    # r_kpy: 160
+    # r_kpz: 40.0
+
+    # r_kdx: 10
+    # r_kdy: 10
+    # r_kdz: 20
+
+    # r_kix: 0.0
+    # r_kiy: 0.0
+    # r_kiz: 0.0

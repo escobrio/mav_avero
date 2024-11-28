@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>avero_trajectory_gen</name>
+  <version>0.0.0</version>
+  <description>The avero_trajectory_gen package</description>
+
+  <author email="denrio@ethz.ch">Dennis Escobar del Rio</author>
+  <maintainer email="denrio@ethz.ch">Dennis Escobar del Rio</maintainer>
+
+
+  <license>ASL 2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>catkin_simple</buildtool_depend>
+
+  <depend>eigen_catkin</depend>
+  <depend>mav_msgs</depend>
+  <depend>mav_trajectory_generation</depend>
+  <depend>mav_trajectory_generation_ros</depend>
+  <depend>mav_visualization</depend>
+  <depend>mav_planning_msgs</depend>
+  <depend>eigen_checks</depend>
+  <depend>roslib</depend>
+</package>

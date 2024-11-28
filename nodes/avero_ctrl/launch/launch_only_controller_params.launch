@@ -1,0 +1,10 @@
+<launch>
+    <!-- Die parameter der Gains und des models in den Parameter Server laden-->
+    <rosparam file="$(find avero_ctrl)/resources/model_params.yaml" command="load" />
+    <rosparam file="$(find avero_ctrl)/resources/pid_gains.yaml" command="load" />
+    <rosparam file="$(find avero_ctrl)/resources/pseudo_inv.yaml" command="load" />
+    <rosparam file="$(find avero_ctrl)/resources/max_wrench.yaml" command="load" />
+    <rosparam file="$(find avero_ctrl)/resources/filter_params.yaml" command="load" />
+    <rosparam file="$(find avero_ctrl)/resources/max_errors.yaml" command="load" />
+    
+</launch>
