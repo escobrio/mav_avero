@@ -174,7 +174,7 @@
     <xacro:property name="servo_zero_offset" value="0.0" />
 
     <!-- Rotor Parameters -->
-    <xacro:property name="thrust_constant" value="${6E-05}" />
+    <xacro:property name="thrust_constant" value="${5.749E-05}" />
     <xacro:property name="moment_constant" value="0.016" />
     <xacro:property name="time_constant_up" value="0.0125" />
     <xacro:property name="time_constant_down" value="0.025" />
