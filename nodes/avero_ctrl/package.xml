@@ -12,8 +12,8 @@
   <buildtool_depend>catkin_simple</buildtool_depend>
 
   <depend>roscpp</depend>
+  <depend>rospy</depend>
   <depend>tf</depend>
-
   <depend>omav_hovery_core</depend>
   <depend>omav_hovery_drivers</depend>
   <depend>omav_hovery_ros</depend>

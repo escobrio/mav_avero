@@ -2,7 +2,7 @@
 <launch>
 
     <param name="robot_description" command="xacro '$(find avero_sim)/urdf/drone_V3.xacro'" />
-    <arg name="rviz_config_file" default="$(find avero_sim)/config/avero_first_try.rviz"/>
+    <arg name="rviz_config_file" default="$(find avero_sim)/config/drone_rviz.rviz"/>
     
     
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"></node>

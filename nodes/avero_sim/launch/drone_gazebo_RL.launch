@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- Use sim time -->
+  <param name="use_sim_time" value="true" />
+
+  ### SPAWN DRONE 
+  <arg name="mav_name" default="drone"/>
+  <param name="robot_namespace" value="drone"/> 
+  <param name="robot_description" command="xacro '$(find avero_sim)/urdf/drone_V3.xacro'"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find avero_sim)/worlds/avero.world" />
+    <arg name="debug" value="false" />
+    <arg name="paused" value="true" />
+    <arg name="gui" value="true" />
+    <arg name="verbose" value="false" />
+    <arg name="use_sim_time" value="true" />
+  </include>
+
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" output="screen" respawn="false" 
+        args="-param robot_description -urdf -model $(arg mav_name) -x 0 -y 0 -z 0.5"/>
+
+  ### RL Controller
+  <node name="RLAgentNode" pkg="avero_ctrl" type="AveroRLNode.py" output="screen"/>
+
+</launch>
