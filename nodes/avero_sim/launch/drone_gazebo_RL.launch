@@ -19,9 +19,9 @@
   </include>
 
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" output="screen" respawn="false" 
-        args="-param robot_description -urdf -model $(arg mav_name) -x 0 -y 0 -z 0.5"/>
+        args="-param robot_description -urdf -model $(arg mav_name) -x 0 -y 0 -z 100.0"/>
 
   ### RL Controller
-  <node name="RLAgentNode" pkg="avero_ctrl" type="AveroRLNode.py" output="screen"/>
+  <node name="RLAgentNode" pkg="avero_ctrl" type="AveroRLNodeSetpoint.py" output="screen"/>
 
 </launch>

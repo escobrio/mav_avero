@@ -156,11 +156,11 @@
     <!-- We need to use different gains for the "inner" and "outer" nozzle -->
 
     <!-- Servo Parameters -->
-    <xacro:property name="p_gain_1st" value="50" />
+    <xacro:property name="p_gain_1st" value="100" />
     <xacro:property name="i_gain_1st" value="0.02" />
     <xacro:property name="d_gain_1st" value="0.35" />
 
-    <xacro:property name="p_gain_2nd" value="50" />
+    <xacro:property name="p_gain_2nd" value="100" />
     <xacro:property name="i_gain_2nd" value="0.02" />
     <xacro:property name="d_gain_2nd" value="0.35" />
 
@@ -176,8 +176,8 @@
     <!-- Rotor Parameters -->
     <xacro:property name="thrust_constant" value="${5.749E-05}" />
     <xacro:property name="moment_constant" value="0.016" />
-    <xacro:property name="time_constant_up" value="0.2816" />
-    <xacro:property name="time_constant_down" value="0.2816" />
+    <xacro:property name="time_constant_up" value="0.1816" />
+    <xacro:property name="time_constant_down" value="0.1816" />
     <xacro:property name="rotor_drag_coefficient" value="${8.06428e-05}" />
     <xacro:property name="rolling_moment_coefficient" value="0.000001" />
 
