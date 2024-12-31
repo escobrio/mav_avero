@@ -68,7 +68,7 @@ class RLAgentNode:
 
 if __name__ == '__main__':
     try: 
-        model_path = '/home/dedi/catkin_ws/src/mav_avero/nodes/avero_ctrl/resources/ppo_mav_model_fastactuators.zip'
+        model_path = '/home/dedi/catkin_ws/src/mav_avero/nodes/avero_ctrl/resources/ppo_mav_model_fast_fixedtorque.zip'
 
         node = RLAgentNode(model_path)
         rospy.spin()
