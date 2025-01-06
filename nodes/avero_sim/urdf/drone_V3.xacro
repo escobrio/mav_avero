@@ -156,16 +156,16 @@
     <!-- We need to use different gains for the "inner" and "outer" nozzle -->
 
     <!-- Servo Parameters -->
-    <xacro:property name="p_gain_1st" value="100.0" />
+    <xacro:property name="p_gain_1st" value="150.0" />
     <xacro:property name="i_gain_1st" value="0.02" />
-    <xacro:property name="d_gain_1st" value="0.35" />
+    <xacro:property name="d_gain_1st" value="20" />
 
-    <xacro:property name="p_gain_2nd" value="100.0" />
+    <xacro:property name="p_gain_2nd" value="150.0" />
     <xacro:property name="i_gain_2nd" value="0.02" />
-    <xacro:property name="d_gain_2nd" value="0.35" />
+    <xacro:property name="d_gain_2nd" value="20" />
 
-    <xacro:property name="c_min" value="-10.0"/>
-    <xacro:property name="c_max" value="10.0"/>
+    <xacro:property name="c_min" value="-1.5"/>
+    <xacro:property name="c_max" value="1.5"/>
 
     <xacro:property name="i_min" value="-1.0"/>
     <xacro:property name="i_max" value="1.0"/>
